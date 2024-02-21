@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: paul-pod-1
+  labels:
+    app: motd
+spec:
+  containers:
+  - name: motd
+    image: paulbillard42/motd_api:v1
+    ports:
+    - containerPort: 5000
+    env:
+    - name: APP_PORT
+      value: "5000"
+    - name: MESSAGE
+      value: "Bonsoir du cluster"
+  
