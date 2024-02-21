@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paul-deployment-canari
+  labels:
+    app: motd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: motd
+  template:
+    metadata:
+      labels:
+        app: motd
+    spec:
+      containers:
+      - name: motd-api
+        image: paulbillard42/motd_api:v1
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_PORT
+          value: "5000"
+        - name: MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: donnee-msg
+              key: message
